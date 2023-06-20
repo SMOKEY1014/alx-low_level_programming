@@ -2,16 +2,15 @@
 #include <time.h>
 #include <stdio.h>
 
-/*
-* Positive anything is better than negative nothing Task
-*/
-/*
-* main - Entry point
-* Return - Always return(0) for success.
+/**
+* main - Prints the output.
+*
+* Return: Always 0 (Success)
 */
 
 int main(void)
 {
+
 	int n;
 	srand(time(0));
 

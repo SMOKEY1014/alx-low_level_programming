@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
-/**
-* main - Entry point
-*
-* return valeu - always (0) for success
-*/
 
+/**
+* main - Prints the alphabet.
+*
+* Return: Always 0 (Success)
+*/
 int main(void)
 {
 	int n;
