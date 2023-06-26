@@ -21,5 +21,5 @@ char *_strcpy(char *dest, char *src)
 		dest[x] = src[x];
 	}
 	dest[l] = '\0';
-	return (dest); //Return value: the pointer to dest
+	return (dest);
 }
