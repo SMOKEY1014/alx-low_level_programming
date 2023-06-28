@@ -2,29 +2,29 @@
 
 /**
 * char *_strcat - a function that appends the src string to the dest string
-* including the overwriting the terminating null byte (\0) at the end of dest, 
+* including the overwriting the terminating null byte (\0) at the end of dest.
 * and then adds a terminating null byte.
-* *dest_ptr is a pointer.
+* x is a pointer.
 * @dest: appends to
 * @src: Appends from
 * Return: pointer to the resulting string
 */
 
-char* _strcat(char* dest, const char* src) 
+char *_strcat(char *dest, const char *src)
 {
-	char* dest_ptr = dest;
+	char *x = dest;
 
-	while (*dest_ptr != '\0') 
+	while (*x != '\0')
 	{
-		dest_ptr++;
+		x++;
 	}
 
-	while (*src != '\0') 
+	while (*src != '\0')
 	{
-		*dest_ptr = *src;
-		dest_ptr++;
+		*x = *src;
+		x++;
 		src++;
 	}
-	*dest_ptr = '\0';
+	*x = '\0';
 	return (dest);
 }
