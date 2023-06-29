@@ -9,6 +9,7 @@
 char *cap_string(char *str)
 {
 	int cap_nxt = 1;
+
 	for (int i = 0; str[i] != '\0'; i++)
 	{
 		if (isspace(str[i]) ||
