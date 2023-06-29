@@ -8,10 +8,14 @@
  */
 char *cap_string(char *str)
 {
-	int cap_nxt = 1;
+	int i = 0;
 
-	for (int i = 0; str[i] != '\0'; i++)
+	while (str[i])
 	{
+		while(!(str[index] >= 'a' && str[index] <= 'z'))
+		{
+			i++;
+		}
 		if (isspace(str[i]) ||
 		str[i] == ',' ||
 		str[i] == ';' ||
@@ -22,15 +26,12 @@ char *cap_string(char *str)
 		str[i] == '(' ||
 		str[i] == ')' ||
 		str[i] == '{' ||
-		str[i] == '}')
+		str[i] == '}' ||
+		i == 0)
 		{
-			cap_nxt = 1;
+			str[i] -= 32;
 		}
-		else if (cap_nxt)
-		{
-			str[i] = toupper(str[i]);
-			cap_nxt = 0;
-		}
+		i++
 	}
 	return (str);
 }

@@ -1,4 +1,5 @@
 #include "main.h"
+#include <string.h>
 
 /**
  * infinite_add - add 2 numbers together
@@ -6,48 +7,55 @@
  * @n2: text representation of 2nd number to add
  * @r: pointer to buffer
  * @size_r: buffer size
- * Return: pointer to calling function
+ * Return: r pointer to calling function
  */
 
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int overflow = 0, i = 0, j = 0, digits = 0;
-	int val1 = 0, val2 = 0, temp_tot = 0;
+	int c = 0;
+	int length_n1 = stringlen(n1);
+	int length_n2 = stringlen(n2);
+	int max_length = (length_n1 > length_n2) ? length_n1 : length_n2;
+	int i = length_n1 - 1;
+	int j = length_n2 - 1;
+	int k = size_r - 1;
 
-	while (*(n1 + i) != '\0')
-		i++;
-	while (*(n2 + j) != '\0')
-		j++;
+	while (i >= 0 || j >= 0 || c > 0)
+	{
+	int dgt1 = (i >= 0) ? (n1[i] - '0') : 0;
+	int dgt2 = (j >= 0) ? (n2[j] - '0') : 0;
+	int sum = dgt1 + dgt2 + c;
+
+
+	if (k < 0)
+	{
+		return 0;
+	}
+
+	r[k] = (sum % 10) + '0';
+	c = sum / 10;
+
 	i--;
 	j--;
-	if (j >= size_r || i >= size_r)
-		return (0);
-	while (j >= 0 || i >= 0 || overflow == 1)
-	{
-		if (i < 0)
-			val1 = 0;
-		else
-			val1 = *(n1 + i) - '0';
-		if (j < 0)
-			val2 = 0;
-		else
-			val2 = *(n2 + j) - '0';
-		temp_tot = val1 + val2 + overflow;
-		if (temp_tot >= 10)
-			overflow = 1;
-		else
-			overflow = 0;
-		if (digits >= (size_r - 1))
-			return (0);
-		*(r + digits) = (temp_tot % 10) + '0';
-		digits++;
-		j--;
-		i--;
+	k--;
 	}
-	if (digits == size_r)
-		return (0);
-	*(r + digits) = '\0';
-	rev_string(r);
-	return (r);
-}
 
+	if (c > 0)
+	{
+
+		if (k < 0)
+		{
+			return 0;
+		}
+		r[k] = c + '0';
+		k--;
+	}
+
+
+	if (k >= 0)
+	{
+		memmove(r, &r[k + 1], size_r - k - 1);
+	}
+
+	return r;
+}
