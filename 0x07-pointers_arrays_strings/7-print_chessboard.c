@@ -1,11 +1,8 @@
 #include "main.h"
 
 /**
-<<<<<<< HEAD
  * print_chessboard - Entry point
-=======
  * print_chessboard - Entry point for function
->>>>>>> 2f3ed62d3d076e68862483f08c3b42a873f86738
  * @a: array
  * Return: Always 0 (Success)
  */
