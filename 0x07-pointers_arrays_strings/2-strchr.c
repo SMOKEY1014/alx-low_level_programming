@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-/* _strchr() :  locates a character in a string.
+/*
+ * _strchr() :  locates a character in a string.
  * @s : string is checked till null terminator
  * @c : checks if character is equal to c. If found, it returns the pointer s.
  *
@@ -13,9 +14,9 @@ char *_strchr(char *s, char c)
 	{
 		if (*s == c)
 		{
-			return s;
+			return (s);
 		}
 		s++;
 	}
-	return NULL;
+	return (NULL);
 }
