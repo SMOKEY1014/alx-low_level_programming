@@ -8,7 +8,7 @@
  * @b : constant byte.
  * @n : input valeu, the number of bytes to be filled.
  *
- * return: changed array with new value for n bytes to s.
+ * Return: changed array with new value for n bytes to s 0
  */
 
 char *_memset(char *s, char b, unsigned int n)

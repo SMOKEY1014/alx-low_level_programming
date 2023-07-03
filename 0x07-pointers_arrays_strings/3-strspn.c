@@ -1,12 +1,10 @@
 #include <stdio.h>
 
-/*
- * unsigned int _strspn() :  gets the length of a prefix substring.
- * @s : input valeu.
- * @accept : input valeu.
- * @length : starting point.
- *
- * Return : @length
+/**
+ * _strspn - Entry point
+ * @s: input
+ * @accept: input
+ * Return: Always 0 (Success) @length
  */
 
 unsigned int _strspn(char *s, char *accept)
