@@ -8,13 +8,14 @@
 */
 
 
-int _isdigit(int c) {
-	if (c >= '0' && c <= '9') 
+int _isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
 	{
-		return 1;  // Is a Digit
+		return (1);
 	}
 	else
 	{
-		return 0;  // Not a digit
+		return (0);
 	}
 }
