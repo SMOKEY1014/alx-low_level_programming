@@ -9,7 +9,7 @@
  * Return: dest
  */
 
-char *_strncat(char *dest, const char *src, int n)
+char *_strncat(char *dest, char *src, int n)
 {
 	char *pointer = dest;
 
