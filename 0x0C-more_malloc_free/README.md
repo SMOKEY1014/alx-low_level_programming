@@ -1,1 +1,8 @@
-README.md
+# 0x0C. C - More malloc, free
+
+* How to use the exit function
+* What are the functions calloc and realloc from the standard library 
+* How to use them
+* exit (3)
+* calloc
+* realloc
