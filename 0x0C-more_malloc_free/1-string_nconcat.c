@@ -1,45 +1,5 @@
-#include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-/**
- * _memcpy - copies n bytes from memory area src to memory area dest
- * @src : bytes copied from
- * @dest : bytes copied to
- * @n : Number of bytes.
- * Return: @dest (returns a Pointer)
- */
-
-char *_memcpy(char *dest, char *src, unsigned int n)
-{
-	int i = 0;
-	int r = n;
-
-	for (; i < r; i++)
-	{
-		dest[i] = src[i];
-		n--;
-	}
-	return (dest);
-}
-
-/**
- * _strlen - returns the length of a string
- * @s: string
- * Return: length
- */
-int _strlen(char *s)
-{
-	int longi = 0;
-
-	while (*s != '\0')
-	{
-		longi++;
-		s++;
-	}
-
-	return (longi);
-}
+#include "main.h"
 
 /**
  * *string_nconcat - concatenates n bytes of a string to another string
@@ -66,18 +26,20 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 
 	if (!s)
 		return (NULL);
+
 	while (i < len1)
 	{
 		s[i] = s1[i];
 		i++;
 	}
+
 	while (n < len2 && i < (len1 + n))
 		s[i++] = s2[j++];
+
 	while (n >= len2 && i < (len1 + len2))
 		s[i++] = s2[j++];
-	
+
 	s[i] = '\0';
 
 	return (s);
-
 }
