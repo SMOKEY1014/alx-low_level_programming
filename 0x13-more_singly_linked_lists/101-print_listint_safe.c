@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "main.h"
+#include "lists.h"
 
 /**
  * print_listint_safe() - the funtion prints a list.
@@ -19,7 +19,7 @@ size_t print_listint_safe(const listint_t *head)
 	s = head;
 	f = head;
 
-	while (slow != NULL && fast != NULL && fast->next != NULL)
+	while (s != NULL && f != NULL && f->next != NULL)
 	{
 		printf("[%p] %d\n", (void *)s, s->n);
 		s = s->next;
