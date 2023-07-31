@@ -1,8 +1,9 @@
 #include <stdlib.h>
-#include "main.h"
+#include "lists.h"
 
 /**
- * free_listint2() - this function sets the head to NULL and frees a listint_t list.
+ * free_listint2() - this function sets the head to NULL and
+ * frees a listint_t list.
  *
  * @head: Points to the head of list to be freed.
  *

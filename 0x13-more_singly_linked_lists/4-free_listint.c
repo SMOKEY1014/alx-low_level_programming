@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "lists.h"
 
 /**
  * free_listint() - this funtion frees the listint_t list.

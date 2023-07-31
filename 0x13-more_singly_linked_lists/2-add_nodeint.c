@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "main.h"
+#include "lists.h"
 
 /*
  * add_nodeint() - It Adds the new node at the head of a listint_t list.

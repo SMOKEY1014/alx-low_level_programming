@@ -1,5 +1,5 @@
 #include <stddef.h>
-#include "main.h"
+#include "lists.h"
 
 /**
  * sum_listint() - sums all the data (n) in a listint_t linked list.
