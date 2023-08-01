@@ -16,8 +16,8 @@ listint_t *add_nodeint_end(listint_t **head, const int n)
 {
 	listint_t *new_Node;
 	listint_t *cur;
-	listint_t *h;
-	h = *head;
+	listint_t *h = *head;
+
 	new_Node = malloc(sizeof(listint_t));
 
 	if (new_Node == NULL)
@@ -33,7 +33,7 @@ listint_t *add_nodeint_end(listint_t **head, const int n)
 	/* Make the new node the head incasethe list is empty */
 		h = new_Node;
 		return (new_Node);
-	} 
+	}
 	else
 	{
 		/* Traverse or go through the list to find the last(end) node */

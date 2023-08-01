@@ -25,7 +25,7 @@ int pop_listint(listint_t **head)
 	data = tempo->n;
 	tempo2 = tempo->next
 	free(tempo);
-	tempo = tempo2; 
+	tempo = tempo2;
 
 	return (data);
 }
