@@ -2,7 +2,7 @@
 #include "lists.h"
 
 /**
- * free_listint() - this funtion frees the listint_t list.
+ * free_listint - this funtion frees the listint_t list.
  *
  * @head: Pointer pointing to the beginning or head of the list to be freed.
  *

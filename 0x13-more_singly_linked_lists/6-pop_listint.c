@@ -2,7 +2,7 @@
 #include "lists.h"
 
 /**
- * pop_listint() - this function deletes the head node of list.
+ * pop_listint - this function deletes the head node of list.
  *
  * @head: points to the head of the list.
  *

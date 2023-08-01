@@ -4,7 +4,7 @@
 #include "lists.h"
 
 /**
- * print_listint_safe() - the funtion prints a list.
+ * print_listint_safe - the funtion prints a list.
  *
  * @head: Points to the head of the list.
  *

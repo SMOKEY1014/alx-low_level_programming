@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * reverse_listint() - This function reverses the list.
+ * reverse_listint - This function reverses the list.
  *
  * @head: Points to the pointer to the start of the list.
  *

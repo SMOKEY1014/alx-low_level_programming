@@ -2,7 +2,7 @@
 #include <stddef.h>
 
 /**
- * listint_len() - It returns the num of elements of a listint_t list.
+ * listint_len - It returns the num of elements of a listint_t list.
  *
  * @h: Pointer that points to the head of the list.
  *
