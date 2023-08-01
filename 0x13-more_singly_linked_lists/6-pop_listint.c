@@ -13,18 +13,19 @@
 int pop_listint(listint_t **head)
 {
 	int data;
-	listint_t *temporary;
-
+	listint_t *tempo;
+	listint_t *tempo2;
 
 	if (*head == NULL)
 	{
 		return (0);
 	}
 
-	temporary = *head;
-	data = temporary->n;
-	*head = temporary->next;
-	free(temporary);
+	tempo = *head;
+	data = tempo->n;
+	tempo2 = tempo->next
+	free(tempo);
+	tempo = tempo2; 
 
 	return (data);
 }
