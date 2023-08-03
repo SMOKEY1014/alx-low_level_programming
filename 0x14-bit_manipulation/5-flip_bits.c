@@ -14,7 +14,7 @@ unsigned int flip_bits(unsigned long int n, unsigned long int m)
 	unsigned long int xor_output = n ^ m;
 	unsigned int counter = 0;
 
-	if (xor_output != 0)
+	while (xor_output != 0)
 	{
 		counter += xor_output & 1;
 		xor_output >>= 1;
