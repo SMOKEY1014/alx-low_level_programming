@@ -1,5 +1,7 @@
 #include "main.h"
 
+#define BUFFER_SIZE 1024
+
 char *create_buffer(char *file);
 
 /**
@@ -40,7 +42,7 @@ char *create_buffer(char *file)
 int main(int argc, char *argv[])
 {
 	int fm, ft, letters_read, letters_written;
-	char buffer;
+	char buffer[BUFFER_SIZE];
 
 	if (argc != 3)
 	{
@@ -59,7 +61,7 @@ int main(int argc, char *argv[])
 	if (ft == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		close(fd_from);
+		close(fm);
 		exit(99);
 	}
 

@@ -14,13 +14,16 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	ssize_t lettersRead = 0;
 	FILE *fopen_read;
 
+
 	fopen_read = fopen(filename, "r");
 
 	if (fopen_read == NULL)
+	{
 		free(buffer_size);
 		return (0);
+	}
 
-	if (buffer_size = NULL)
+	if (buffer_size == NULL)
 	{
 		return (0);
 	}
