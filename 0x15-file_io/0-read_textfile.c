@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "main.h"
 
 /**
  * read_textfile - Read and print contents of the text file.
@@ -9,40 +10,22 @@
  *         or 0 if there was an error.
  */
 ssize_t read_textfile(const char *filename, size_t letters)
+
 {
-	char *buffer_size = malloc(sizeof(char) * (letters + 1));
-	ssize_t lettersRead = 0;
-	FILE *fopen_read;
+	char *buf;
+	ssize_t fd;
+	ssize_t w;
+	ssize_t t;
 
-
-	fopen_read = fopen(filename, "r");
-
-	if (fopen_read == NULL)
-	{
-		free(buffer_size);
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
 		return (0);
-	}
+	buf = malloc(sizeof(char) * letters);
+	t = read(fd, buf, letters);
+	w = write(STDOUT_FILENO, buf, t);
 
-	if (buffer_size == NULL)
-	{
-		return (0);
-	}
-
-	lettersRead = fread(buffer_size, 1, letters, fopen_read);
-	if (lettersRead == 0 || ferror(fopen_read))
-	{
-		fclose(fopen_read);
-		free(buffer_size);
-		return (0);
-	}
-
-	buffer_size[lettersRead] = '\0';
-	fclose(fopen_read);
-
-	_putchar("%s", buffer_size);
-	free(buffer_size);
-
-
-	return (lettersRead);
+	free(buf);
+	close(fd);
+	return (w);
 
 }
