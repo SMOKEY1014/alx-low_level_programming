@@ -12,20 +12,18 @@
  */
 int pop_listint(listint_t **head)
 {
-	int data;
+	int d;
 	listint_t *tempo;
-	listint_t *tempo2;
 
-	if (*head == NULL)
+	if (!head || !*head)
 	{
 		return (0);
 	}
 
-	tempo = *head;
-	data = tempo->n;
-	tempo2 = tempo->next
-	free(tempo);
-	tempo = tempo2;
+	d = (*head)->n;
+	tempo = (*head)->next;
+	free(*head);
+	*head = tempo;
 
-	return (data);
+	return (d);
 }
