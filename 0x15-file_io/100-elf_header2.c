@@ -1,3 +1,11 @@
+#include <elf.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 /**
  * print_osabi - Program that prints the OS/ABI of an ELF header.
  * @e_ident: pointer to an array containing the ELF version.
