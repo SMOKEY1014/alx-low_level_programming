@@ -53,14 +53,14 @@ int main(void)
            else if (pid == 0)
            {
             /* Introduce the child process */
-            char *cmd_path = confirm_path(tokens);
+            char *cmd_path = confirm_path(args[0]);
             if (cmd_path == NULL)
             {
-                perror("Command doesn't exist!");
-                exit(1);
+                fprintf(stderr, "Command '%s' doesn't exist!\n", args[0]);
+                exit(EXIT_FAILURE);
             }
 
-            int executor = execve(cmd_path, &tokens, __environ);
+            int executor = execve(cmd_path, args, __environ);
             if (executor == -1)
             {
                 perror("Program execution failed !");
@@ -69,6 +69,8 @@ int main(void)
             
            }
         }
+        free(line);
+        free(path_dup);
         return(0);
      }
 
