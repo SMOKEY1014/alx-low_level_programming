@@ -22,11 +22,13 @@ int main(void)
 
         token = strtok(NULL, delimiters);
 
-        for(int b = 0; b < num_commands; b++)
+        
+    }
+    
+    for(int b = 0; b < num_commands; b++)
         {
             printf("Arg %d : %s \n", b, commands[b]);
         }
-    }
 
     // /* Process each command separately */
     // for (int i = 0; i < num_commands; i++)
