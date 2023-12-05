@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    /* Declaring viriables */
+    /* Declaring variables */
     int chars_read;
     char *line = NULL;
     size_t length = 0;
@@ -68,10 +68,10 @@ int main(void)
             }
             
            }
-        }
+
+         }
+
         free(line);
-        free(path_dup);
-        return(0);
      }
 
 }
