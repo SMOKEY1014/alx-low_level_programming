@@ -61,7 +61,7 @@ char** splitString(const char* str, const char* delimiters, int* wordCount) {
     return words;
 }
 
-// Function to free memory allocated for words array
+/* Function to free memory allocated for words array */
 void freeWords(char** words, int wordCount) {
     for (int i = 0; i < wordCount; i++) {
         free(words[i]);
@@ -84,7 +84,7 @@ int main() {
         printf("Word %d: %s\n", i + 1, words[i]);
     }
 
-    // Free allocated memory
+    /* Free allocated memory */ 
     freeWords(words, wordCount);
 
     return 0;
