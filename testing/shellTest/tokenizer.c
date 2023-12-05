@@ -6,7 +6,7 @@
 
 int main(void)
 {
-    char input[] = "command arg env";
+    char input[] = "ls -l";
 
     char *delimiters = " ;:";
     char *commands[MAX_ARGUMENTS];
@@ -24,7 +24,7 @@ int main(void)
 
         
     }
-    
+
     for(int b = 0; b < num_commands; b++)
         {
             printf("Arg %d : %s \n", b, commands[b]);
