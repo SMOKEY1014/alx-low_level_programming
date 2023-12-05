@@ -1,5 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
+#define MAX_ARGUMENTS 1024
 
 #include <string.h>
 #include <stdio.h>

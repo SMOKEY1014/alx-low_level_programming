@@ -7,71 +7,91 @@ int main(void)
     char *line = NULL;
     size_t length = 0;
 
-    /* Tokenizing the string string */
-    char *delimiters = " ";
+    /* Tokenizing the string */
+    char *delimiters = " \t\r\n\a";
     char *tokens; /* Allocate memory for tokens */
 
-    /* The Prompt */
-    write(1, "-$ ",3);
+    while (1)
+    {
+        /* The Prompt */
+        write(1, "-$ ", 3);
 
-    /*Get user input */
-     chars_read = getline(&line, &length, stdin);
-     if (chars_read == -1)
-     {
-        perror("Error recognizing input");
-        return(-1);
-     }
-     else
-     {
+        /* Get user input */
+        chars_read = getline(&line, &length, stdin);
+        if (chars_read == -1)
+        {
+            perror("Error recognizing input");
+            return -1;
+        }
+
         line[chars_read - 1] = '\0';
-        /* Tokenizing the line to an array of string */
-        char *args[MAX_ARGUMENTS]; /*Assuming maximum number of arguments*/
+
+        /* Tokenizing the line to an array of strings */
+        char *args[MAX_ARGUMENTS]; /* Assuming maximum number of arguments */
         int i = 0;
 
         tokens = strtok(line, delimiters);
 
-        while( tokens != NULL)
+        while (tokens != NULL && i < MAX_ARGUMENTS)
         {
-            /* check if the token command is a built-in.(cd, rm).
-            * if it's not built-in, execute it
-            */
-           while(tokens != NULL && i < MAX_ARGUMENT)
+            args[i++] = tokens;
+            tokens = strtok(NULL, delimiters);
+        }
+        args[i] = NULL;
+
+        /* Check for built-in commands */
+        if (strcmp(args[0], "exit") == 0)
+        {
+            /* Exit shell */
+            builtin_exit();
+        }
+        else if (strcmp(args[0], "cd") == 0)
+        {
+            /* Change directory */
+            builtin_cd(args[1]);
+        }
+        else
+        {
+            /* Forking */
+            pid_t pid = fork();
+
+            if (pid == -1)
             {
-                args[i++] = tokens;
-                tokens = strtok(NULL, delimiters);
+                perror("Forking failed");
+                return -1;
             }
-           args[i] = NULL;
-
-           /*Forking*/
-           pid_t pid = fork();
-
-           if(pid == -1)
-           {
-            perror("Forking failed");
-            return(-1);
-           }
-           else if (pid == 0)
-           {
-            /* Introduce the child process */
-            char *cmd_path = confirm_path(args[0]);
-            if (cmd_path == NULL)
+            else if (pid == 0)
             {
-                fprintf(stderr, "Command '%s' doesn't exist!\n", args[0]);
-                exit(EXIT_FAILURE);
-            }
+                /* Child process */
+                char *cmd_path = confirm_path(args[0]);
+                if (cmd_path == NULL)
+                {
+                    fprintf(stderr, "Command '%s' doesn't exist!\n", args[0]);
+                    free(line);
+                    exit(EXIT_FAILURE);
+                }
 
-            int executor = execve(cmd_path, args, __environ);
-            if (executor == -1)
-            {
+                /* Execute the command */
+                execve(cmd_path, args, environ);
                 perror("Program execution failed !");
+                free(line);
                 exit(EXIT_FAILURE);
             }
-            
-           }
+            else
+            {
+                /* Parent process */
+                int status;
+                waitpid(pid, &status, 0);
 
-         }
+                if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+                {
+                    printf("\nChild process exited with status: %d\n", WEXITSTATUS(status));
+                }
+            }
+        }
 
         free(line);
-     }
+    }
 
+    return (0);
 }
