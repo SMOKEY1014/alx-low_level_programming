@@ -28,11 +28,10 @@ void executeCommand(char *input) {
         exit(EXIT_FAILURE);
     }
 }
-
 int main(void) {
-    char input[];  // Example input string = "/bin/ls -l"
+    char input[100];  // Example input string = "/bin/ls -l"
     printf("$ - ");
-    scanf("%s",&input);
+    scanf("%99[^\n]", input);  // Read up to 99 characters until newline
 
     // Execute the command
     executeCommand(input);
