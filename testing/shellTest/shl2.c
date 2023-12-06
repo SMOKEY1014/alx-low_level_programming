@@ -20,31 +20,41 @@ void executeCommand(char *input, char *path) {
     }
     args[num_args] = NULL;
 
-    // Search for the executable in the directories listed in path
-    char *programPath = NULL;
-    for (int i = 0; i < MAX_ARGUMENTS; i++) {
-        char full_path[MAX_PATH_LENGTH];
-        snprintf(full_path, sizeof(full_path), "%s/%s", path, args[0]);
-
-        if (access(full_path, X_OK) == 0) {
-            programPath = strdup(full_path);
-            break;
-        }
-    }
-
-    if (programPath == NULL) {
-        fprintf(stderr, "Command '%s' not found in $PATH\n", args[0]);
-        exit(EXIT_FAILURE);
-    }
-
     // Execute the program
     char *envp[] = { NULL };
 
-    if (execve(programPath, args, envp) == -1) {
-        perror("execve");
-        exit(EXIT_FAILURE);
+    if (access(args[0], X_OK) == 0) {
+        // If the executable is found in the current directory, execute it directly
+        if (execve(args[0], args, envp) == -1) {
+            perror("execve");
+            exit(EXIT_FAILURE);
+        }
+    } else {
+        // Search for the executable in the directories listed in path
+        char *programPath = NULL;
+        for (int i = 0; i < MAX_ARGUMENTS; i++) {
+            char full_path[MAX_PATH_LENGTH];
+            snprintf(full_path, sizeof(full_path), "%s/%s", path, args[0]);
+
+            if (access(full_path, X_OK) == 0) {
+                programPath = strdup(full_path);
+                break;
+            }
+        }
+
+        if (programPath == NULL) {
+            fprintf(stderr, "Command '%s' not found in $PATH\n", args[0]);
+            exit(EXIT_FAILURE);
+        }
+
+        // Execute the program
+        if (execve(programPath, args, envp) == -1) {
+            perror("execve");
+            exit(EXIT_FAILURE);
+        }
     }
 }
+
 
 int main(void) {
     FILE *fp;
