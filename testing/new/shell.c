@@ -52,12 +52,19 @@ int main(void)
 			tokens = strtok(line, delimiters);
 
 			/* We use a null terminating tokenization*/
-			while(tokens != NULL)
+			// while(tokens != NULL)
+			// {
+			// 	line_argument[idx] = tokens;
+			// 	tokens = strtok(NULL, delimiters);
+			// 	idx++;
+			// }
+
+			for(idx; tokens != NULL; idx++)
 			{
 				line_argument[idx] = tokens;
 				tokens = strtok(NULL, delimiters);
-				idx++;
 			}
+
 			line_argument[idx] = NULL;
 
 			/**
