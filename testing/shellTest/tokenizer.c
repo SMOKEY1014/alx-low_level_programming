@@ -30,7 +30,7 @@ void executeCommand(char *input) {
 }
 
 int main(void) {
-    char input[];  // Example input string = "/bin/ls -l"
+    char *input[];  // Example input string = "/bin/ls -l"
     printf("$ - ");
     scanf("%s",&input);
 
