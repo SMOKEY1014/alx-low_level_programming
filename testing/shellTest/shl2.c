@@ -70,6 +70,12 @@ int main(void) {
             token = strtok(NULL, delimiters);
         }
 
+        // Print tokenized paths for debugging
+        printf("Tokenized Paths:\n");
+        for (int i = 0; i < num_tokens; i++) {
+            printf("%s\n", tokens[i]);
+        }
+
         // Close the pipe
         pclose(fp);
 
@@ -85,7 +91,7 @@ int main(void) {
         }
 
         // If the command was not found in tokenized directories, try specified directories
-        char *searchDirectories[] = {"/usr/bin/", "/sbin/","usr/sbin/", "/bin/", "/usr/local/bin/", "/opt/", NULL};
+        char *searchDirectories[] = {"/usr/bin", "/sbin", "/bin", "/usr/local/bin", "/opt", NULL};
         i = 0;
         while (searchDirectories[i] != NULL) {
             executeCommand(input, searchDirectories[i]);
