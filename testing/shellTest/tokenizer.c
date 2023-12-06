@@ -12,6 +12,7 @@ int main(void)
     char *delimiters = " ;:";
     char *commands[MAX_ARGUMENTS];
     int num_commands = 0;
+    int b;
 
     /* Tokenize the input string based on semicolons */
     char *token = strtok(input, delimiters);
@@ -26,7 +27,7 @@ int main(void)
         
     }
 
-    for(int b = 0; b < num_commands; b++)
+    for(b = 0; b < num_commands; b++)
         {
             printf("Arg %d : %s \n", b, commands[b]);
         }
