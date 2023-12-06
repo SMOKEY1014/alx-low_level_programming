@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 #define MAX_ARGUMENTS 10
 
@@ -28,7 +27,7 @@ int main(void)
 
     for(int b = 0; b < num_commands; b++)
         {
-            printf(" $ - %s \n", b, commands[b]);
+            printf("Arg %d : %s \n", b, commands[b]);
         }
 
     // /* Process each command separately */
@@ -56,19 +55,6 @@ int main(void)
     //     }
     //     printf("\n");
     // }
-
-    char *programPath = "/bin/%s",commands[0];  // Path to the 'ls' program
-    char *args[] = { "%s",commands[0], commands[1], NULL };  // Command-line arguments for 'ls'
-    char *envp[] = { NULL };  // No additional environment variables
-
-    // Execute the 'ls' program
-    if (execve(programPath, args, envp) == -1) {
-        perror("execve");
-        exit(EXIT_FAILURE);
-    }
-
-    // This code will not be reached if execve is successful
-    printf("This will not be printed.\n");
 
     return 0;
 }
