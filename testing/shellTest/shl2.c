@@ -18,57 +18,46 @@ void executeCommand(char *input, char *path) {
         num_args++;
         token = strtok(NULL, delimiters);
     }
+
     args[num_args] = NULL;
 
-    // Execute the program
-    char *envp[] = { NULL };
+    // Search for the executable in the specified path
+    char *programPath = NULL;
+    for (int i = 0; i < MAX_ARGUMENTS; i++) {
+        char full_path[MAX_PATH_LENGTH];
+        snprintf(full_path, sizeof(full_path), "%s/%s", path, args[0]);
 
-    if (access(args[0], X_OK) == 0) {
-        // If the executable is found in the current directory, execute it directly
-        if (execve(args[0], args, envp) == -1) {
-            perror("execve");
-            exit(EXIT_FAILURE);
-        }
-    } else {
-        // Search for the executable in the directories listed in path
-        char *programPath = NULL;
-        for (int i = 0; i < MAX_ARGUMENTS; i++) {
-            char full_path[MAX_PATH_LENGTH];
-            snprintf(full_path, sizeof(full_path), "%s/%s", path, args[0]);
-
-            if (access(full_path, X_OK) == 0) {
-                programPath = strdup(full_path);
-                break;
-            }
-        }
-
-        if (programPath == NULL) {
-            fprintf(stderr, "Command '%s' not found in $PATH\n", args[0]);
-            exit(EXIT_FAILURE);
-        }
-
-        // Execute the program
-        if (execve(programPath, args, envp) == -1) {
-            perror("execve");
-            exit(EXIT_FAILURE);
+        if (access(full_path, X_OK) == 0) {
+            programPath = strdup(full_path);
+            break;
         }
     }
-}
 
-
-int main(void) {
-    FILE *fp;
-    char path[1035];
-
-    // Open the command for reading
-    fp = popen("echo $PATH", "r");
-    if (fp == NULL) {
-        printf("Failed to run command\n");
+    if (programPath == NULL) {
+        fprintf(stderr, "Command '%s' not found in $PATH or specified directories\n", args[0]);
         exit(EXIT_FAILURE);
     }
 
+    // Execute the program
+    char *envp[] = { NULL };
+    execve(programPath, args, envp);
+
+    // execve() only returns if there is an error
+    perror("execve");
+    exit(EXIT_FAILURE);
+}
+
+int main(void) {
+    // Open the command for reading
+    FILE *fp = popen("echo $PATH", "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Failed to run command\n");
+        return EXIT_FAILURE;
+    }
+
     // Read the output a line at a time
-    if (fgets(path, sizeof(path) - 1, fp) != NULL) {
+    char path[MAX_PATH_LENGTH];
+    if (fgets(path, sizeof(path), fp) != NULL) {
         // Tokenize the path using ":"
         char *delimiters = ":";
         char *tokens[MAX_ARGUMENTS];
@@ -84,14 +73,31 @@ int main(void) {
         // Close the pipe
         pclose(fp);
 
-        // Prompt for user input
         char input[100];
         printf("$ - ");
         scanf("%99[^\n]", input);
 
-        // Execute the command using the path tokens
-        executeCommand(input, tokens[0]);
+        // Try to execute the command in each tokenized directory
+        int i = 0;
+        while (i < num_tokens) {
+            executeCommand(input, tokens[i]);
+            i++;
+        }
+
+        // If the command was not found in tokenized directories, try specified directories
+        char *searchDirectories[] = {"/usr/bin", "/sbin","usr/sbin", "/bin", "/usr/local/bin", "/opt", NULL};
+        i = 0;
+        while (searchDirectories[i] != NULL) {
+            executeCommand(input, searchDirectories[i]);
+            i++;
+        }
+
+        // If the command was not found in any directory
+        fprintf(stderr, "Command '%s' not found in specified directories\n", input);
+        return EXIT_FAILURE;
     }
 
-    return 0;
+    fprintf(stderr, "Failed to read $PATH\n");
+    return EXIT_FAILURE;
 }
+
