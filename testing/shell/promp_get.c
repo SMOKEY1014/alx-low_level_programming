@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    /* Declaring viriables */
+    /* Declaring viriables*/
     int chars_read;
     char *line = NULL;
     size_t lenght = 0;

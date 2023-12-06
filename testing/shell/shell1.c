@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    /* Declaring variables */
+    /* Declaring variables*/
     int chars_read;
     char *line = NULL;
     size_t length = 0;

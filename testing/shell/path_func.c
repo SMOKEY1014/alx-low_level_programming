@@ -22,4 +22,4 @@ char *confirm_path(char *cmd)
         free(complete_path);
         folder = strtok(NULL, ":");
     }
-}
+    }
