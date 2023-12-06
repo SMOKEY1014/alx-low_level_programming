@@ -1,11 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include "shell.h"
 
-#define MAX_ARGUMENTS 10
 
-void executeCommand(char *input) {
+void executeCommand(char *input, char *path) {
     // Tokenize the input string
     char *delimiters = " \t\r\n\a";
     char *args[MAX_ARGUMENTS];
@@ -19,25 +15,28 @@ void executeCommand(char *input) {
     }
     args[num_args] = NULL;
 
+    // Search for the executable in the directories listed in path
+    char *programPath = NULL;
+    for (int i = 0; i < MAX_ARGUMENTS; i++) {
+        char full_path[MAX_PATH_LENGTH];
+        snprintf(full_path, sizeof(full_path), "%s/%s", path, args[0]);
+
+        if (access(full_path, X_OK) == 0) {
+            programPath = strdup(full_path);
+            break;
+        }
+    }
+
+    if (programPath == NULL) {
+        fprintf(stderr, "Command '%s' not found in $PATH\n", args[0]);
+        exit(EXIT_FAILURE);
+    }
+
     // Execute the program
-    char *programPath = args[0]; // The first token is assumed to be the program path
     char *envp[] = { NULL };
 
     if (execve(programPath, args, envp) == -1) {
         perror("execve");
         exit(EXIT_FAILURE);
     }
-}
-int main(void) {
-    char input[100];  // Example input string = "/bin/ls -l"
-    printf("$ - ");
-    scanf("%99[^\n]", input);  // Read up to 99 characters until newline
-
-    // Execute the command
-    executeCommand(input);
-
-    // This code will not be reached if execve is successful
-    printf("This will not be printed.\n");
-
-    return 0;
 }
