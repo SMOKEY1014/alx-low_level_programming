@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#define MAX_TOKENS 50
 
 int main(void) {
     FILE *fp;
@@ -12,9 +15,25 @@ int main(void) {
         exit(EXIT_FAILURE);
     }
 
-    /* Read the output a line at a time - output it. */
-    while (fgets(path, sizeof(path) - 1, fp) != NULL) {
-        printf("%s", path);
+    /* Read the output a line at a time. */
+    if (fgets(path, sizeof(path) - 1, fp) != NULL) {
+        // Tokenize the path using ":"
+        char *delimiters = ":";
+        char *tokens[MAX_TOKENS];
+        int num_tokens = 0;
+
+        char *token = strtok(path, delimiters);
+        while (token != NULL && num_tokens < MAX_TOKENS) {
+            tokens[num_tokens] = token;
+            num_tokens++;
+            token = strtok(NULL, delimiters);
+        }
+
+        // Print the tokens
+        printf("Tokens:\n");
+        for (int i = 0; i < num_tokens; i++) {
+            printf("%s\n", tokens[i]);
+        }
     }
 
     /* close */
