@@ -25,6 +25,11 @@ int main(void) {
             num_tokens++;
             token = strtok(NULL, delimiters);
         }
+        /*added code */
+        printf("Tokens:\n");
+        for (int i = 0; i < num_tokens; i++) {
+            printf("%s\n", tokens[i]);
+        }
 
         // Close the pipe
         pclose(fp);
