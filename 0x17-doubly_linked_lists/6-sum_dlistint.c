@@ -8,25 +8,26 @@
 
 int sum_dlistint(dlistint_t *head)
 {
-    /* Traverse the list */
-    int sum = 0;
-    
-    dlistint_t *current;
-    current = head;
+	/* Traverse the list */
+	int sum = 0;
 
-    
-    if (head == NULL)
-    {
-        return (sum);
-    }
-    else 
-    {
-        while (current != NULL) 
-        {
-            sum += current->n;    
-            current = current->next;
-        }
-    }
+	dlistint_t *current;
 
-    return (sum);
+	current = head;
+
+
+	if (head == NULL)
+	{
+		return (sum);
+	}
+	else
+	{
+		while (current != NULL)
+		{
+			sum += current->n;
+			current = current->next;
+		}
+	}
+
+	return (sum);
 }

@@ -9,24 +9,25 @@
 
 dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index)
 {
-    /* Traverse the list to find the nth node */
-    dlistint_t *current;
-    unsigned int count;
-    count = 0;
-    current = head;
-    
+	/* Traverse the list to find the nth node */
+	dlistint_t *current;
+	unsigned int count;
 
-    while (current != NULL) 
-    {
-        if (count == index) 
-        {
-            /* Found the nth node, return it */
-            return current;
-        }
-        current = current->next;
-        count++;
-    }
+	count = 0;
+	current = head;
 
-    /* Node at the given index does not exist */
-    return (NULL);
+
+	while (current != NULL)
+	{
+		if (count == index)
+		{
+			/* Found the nth node, return it */
+			return (current);
+		}
+		current = current->next;
+		count++;
+	}
+
+	/* Node at the given index does not exist */
+	return (NULL);
 }
