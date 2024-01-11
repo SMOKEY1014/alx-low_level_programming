@@ -1,10 +1,9 @@
 #include "lists.h"
 /**
- * main - check the code
- *
- * Return: Always EXIT_SUCCESS.
+ * dlistint_len - counts and returns num elements in doubly linked list
+ * @h: pointer to head of list
+ * Return: number of elements
  */
-
 
 size_t dlistint_len(const dlistint_t *h)
 {
