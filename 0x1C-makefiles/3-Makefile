@@ -18,7 +18,7 @@ all: $(NAME)
 
 # Rule to build the executable
 $(NAME): $(OBJ)
-    $(CC) -o $(NAME) $(OBJ)
+    $(CC) -o $@ $^
 
 # Rule to compile source files
 %.o: %.c
