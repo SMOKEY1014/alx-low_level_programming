@@ -7,23 +7,25 @@ OBJ = $(SRC:.c=.o)
 NAME = school
 CFLAGS = -Wall -Werror -Wextra -pedantic
 
-# standard rule to say rules below are not filenames
-.PHONY: all clean oclean fclean re
+# Implicit rule to compile source files and link into executable
+%.o: %.c m.h  # Enforce m.h dependency
+  $(CC) $(CFLAGS) -c $< -o $@  # Use flags without $(CFLAGS)
 
-# make all i.e. makes all files executable
-all: m.h $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+# Target to build the final executable (with automatic dependency checking)
+all: $(SRC)  # All source files must exist
+  $(CC) $(SRC:.c=.o) -o $(NAME)  # Link object files into executable
 
-# deletes any temporary files and executable
+# Clean target (ensures no failure)
 clean:
-	$(RM) *~ $(NAME)
+  @$(RM) -rf $(NAME) *~ *.bak  # Delete executable, temporary files
 
-# deletes object files
-oclean:
-	$(RM) $(OBJ)
+# Fclean target (ensures no failure)
+fclean: clean
 
-# delets all (temp files, executables & object files)
-fclean: clean oclean
+# Re target (forces recompilation, ensures no failure)
+re:
+  @$(RM) -rf $(NAME) *~ *.bak  # Clean first
+  $(MAKE)  # Rebuild everything
 
-# deletes all and recompiles all source files
-re: oclean all
+# Phony targets (ensure no failure)
+.PHONY: clean fclean re
