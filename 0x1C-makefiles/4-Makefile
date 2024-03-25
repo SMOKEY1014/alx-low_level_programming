@@ -1,0 +1,28 @@
+CFLAGS = -Wall -Werror -Wextra -pedantic
+# Compiler
+CC = gcc
+
+# Source files
+SRC = $(wildcard *.c)
+
+# Object files
+OBJ = $(SRC:.c=.o)
+
+# Executable name
+NAME = school
+
+# Program to delete files
+RM = rm -f
+
+all : $(OBJ)
+        $(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+clean :
+        $(RM) *~ $(NAME)
+
+oclean :
+        $(RM) $(OBJ)
+
+fclean : clean oclean
+
+re : oclean all
