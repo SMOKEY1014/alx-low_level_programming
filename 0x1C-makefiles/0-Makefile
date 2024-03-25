@@ -1,3 +1,4 @@
+# Define the variables
 CC = gcc
 
 all : main.c school.c
