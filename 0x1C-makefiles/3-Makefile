@@ -13,30 +13,15 @@ NAME = school
 # Program to delete files
 RM = rm -f
 
-# Default target
-all: $(NAME)
+all : $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
 
-# Rule to build the executable
-$(NAME): $(OBJ)
-    $(CC) -o $@ $^
+clean :
+	$(RM) *~ $(NAME)
 
-# Rule to compile source files
-%.o: %.c
-    $(CC) -c -o $@ $<
+oclean :
+	$(RM) $(OBJ)
 
-# Rule to clean Emacs and Vim temporary files along with the executable
-clean:
-    $(RM) *~ $(NAME)
+fclean : clean oclean
 
-# Rule to delete object files
-oclean:
-    $(RM) $(OBJ)
-
-# Rule to delete all Emacs and Vim temporary files, the executable, and the object files
-fclean: clean oclean
-
-# Rule to force recompilation of all source files
-re: fclean all
-
-# .PHONY rule to ensure that the listed targets are not treated as files
-.PHONY: all clean oclean fclean re
+re : oclean all
